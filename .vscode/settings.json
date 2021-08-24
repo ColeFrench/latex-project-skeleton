@@ -1,26 +1,11 @@
 {
     "latex-workshop.latex.autoBuild.run": "onSave",
-    "latex-workshop.latex.recipes":
-    [
-        {
-            "name": "tectonic",
-            "tools": [
-                "tectonic"
-            ]
-        }
+    "latex-workshop.latex.external.build.command": "docker",
+    "latex-workshop.latex.external.build.args": [
+        "run", "--mount=type=bind,source=/home/user/resume,target=/home/user", "tectonic",
+        "--synctex",
+        "--keep-logs",
+        "resume.tex"
     ],
-    "latex-workshop.latex.tools":
-    [
-        {
-            "name": "tectonic",
-            "command": "tectonic",
-            "args": [
-                "--synctex",
-                "--keep-logs",
-                "%DOC%.tex"
-            ],
-            "env": {}
-        }
-    ],
-    "latex-workshop.view.pdf.viewer": "tab"
+    "latex-workshop.view.pdf.viewer": "tab",
 }

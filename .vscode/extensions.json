@@ -1,6 +1,7 @@
 {
 	"recommendations":
 	[
+		"ms-azuretools.vscode-docker",
 		"james-yu.latex-workshop"
 	]
 }

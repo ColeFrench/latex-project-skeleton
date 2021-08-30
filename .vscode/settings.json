@@ -2,10 +2,10 @@
     "latex-workshop.latex.autoBuild.run": "onSave",
     "latex-workshop.latex.external.build.command": "docker",
     "latex-workshop.latex.external.build.args": [
-        "run", "--mount=type=bind,source=/home/user/resume,target=/home/user", "tectonic",
+        "run", "--mount=type=bind,source=%DIR%,target=/home/user", "tectonic",
         "--synctex",
         "--keep-logs",
-        "resume.tex"
+        "%DOCFILE_EXT%"
     ],
     "latex-workshop.view.pdf.viewer": "tab",
 }

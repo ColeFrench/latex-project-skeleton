@@ -20,6 +20,13 @@ RUN adduser --disabled-password --gecos 'Unprivileged user' user
 # Copy over the standalone tectonic executable
 COPY --from=downloader --chmod=0755 /root/tectonic /usr/local/bin/
 
+# Install extra packages
+RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+RUN apk --no-cache add \
+    font-merriweather@testing \
+    ttf-opensans \
+    font-fira-code@testing
+
 # Switch to the unprivileged user
 USER user
 WORKDIR /home/user

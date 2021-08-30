@@ -316,3 +316,6 @@ TSWLatexianTemp*
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,visualstudiocode
+
+# Ignore local cache
+.cache/*

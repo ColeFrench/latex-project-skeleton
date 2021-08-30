@@ -14,11 +14,13 @@ RUN archive='tectonic.tar.gz' && \
 
 FROM alpine:latest AS runner
 
+# Add an unprivileged user
+RUN adduser --disabled-password --gecos 'Unprivileged user' user
+
 # Copy over the standalone tectonic executable
 COPY --from=downloader --chmod=0755 /root/tectonic /usr/local/bin/
 
-# Switch to an unprivileged user
-RUN adduser --disabled-password --gecos 'Unprivileged user' user
+# Switch to the unprivileged user
 USER user
 WORKDIR /home/user
 

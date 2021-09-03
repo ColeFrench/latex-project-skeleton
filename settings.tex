@@ -6,7 +6,19 @@
 \setsansfont[Ligatures=TeX]{Open Sans}
 \setmonofont[Ligatures=TeX]{Fira Code}
 
+\usepackage{xcolor}
+
 % Math packages
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
+% Presentation packages
+\usepackage{mdframed}
+\newenvironment{solution}
+{
+    \begin{mdframed}[backgroundcolor=gray!20,frametitle={Solution},frametitleaboveskip=10pt,frametitlebelowskip=0pt,hidealllines=true,innerbottommargin=10pt,leftmargin=-10pt,rightmargin=-10pt,skipabove=5pt]
+}
+{
+    \end{mdframed}
+}

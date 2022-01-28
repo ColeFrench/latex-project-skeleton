@@ -1,6 +1,6 @@
 \documentclass{article}
 
-% Basic formatting
+% Fundamental formatting
 \usepackage{parskip}
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
@@ -13,19 +13,47 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks}
 
+\usepackage{enumitem}
+% https://github.com/jgm/pandoc-templates/blob/08c5d1dcbe9d6db35c0cf58771da6cfe96c3bf9d/default.latex#L316-L317
+\newcommand\tightlist{\setlength\itemsep{0pt}\setlength\parskip{0pt}}
+
 % Math
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsthm}
 
-% Advanced formatting
+% https://tex.stackexchange.com/questions/2607/spacing-around-left-and-right/2610#2610
+\let\originalleft\left
+\let\originalright\right
+\renewcommand\left{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand\right{\aftergroup\egroup\originalright}
+
+\theoremstyle{definition}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand\theoremref[1]{\hyperref[#1]{Theorem \ref*{#1}}}
+\newcommand\lemmaref[1]{\hyperref[#1]{Lemma \ref*{#1}}}
+
+\usepackage{bm}
+
+% Expanded formatting
+\usepackage{xparse}
 \usepackage{mdframed}
-\newenvironment{solution}
+
+\newcounter{theoremsInPreviousSolution}
+\newcounter{equationsInPreviousSolution}
+\NewDocumentEnvironment{solution}{o}
 {
+    \renewcommand\thetheorem{\IfValueT{#1}{#1.}\the\numexpr\value{theorem}-\value{theoremsInPreviousSolution}\relax}
+    \renewcommand\theequation{\IfValueT{#1}{#1.}\the\numexpr\value{equation}-\value{equationsInPreviousSolution}\relax}
     \begin{mdframed}
     [
         backgroundcolor=gray!20,
-        frametitle={Solution},
+        frametitle={Solution\IfValueT{#1}{ #1}},
         frametitleaboveskip=10pt,
         frametitlebelowskip=0pt,
         hidealllines=true,
@@ -37,4 +65,6 @@
 }
 {
     \end{mdframed}
+    \setcounter{theoremsInPreviousSolution}{\value{theorem}}
+    \setcounter{equationsInPreviousSolution}{\value{equation}}
 }

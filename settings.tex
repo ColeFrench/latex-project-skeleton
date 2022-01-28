@@ -28,6 +28,10 @@
 \renewcommand\left{\mathopen{}\mathclose\bgroup\originalleft}
 \renewcommand\right{\aftergroup\egroup\originalright}
 
+\DeclareMathOperator*\argmin{argmin}
+\DeclareMathOperator*\argmax{argmax}
+\DeclareMathOperator*\E{\mathbb E}
+
 \theoremstyle{definition}
 \newtheorem*{claim}{Claim}
 
@@ -39,6 +43,7 @@
 \newcommand\lemmaref[1]{\hyperref[#1]{Lemma \ref*{#1}}}
 
 \usepackage{bm}
+\renewcommand\vec\bm
 
 % Expanded formatting
 \usepackage{xparse}

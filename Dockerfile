@@ -12,6 +12,12 @@ RUN archive='tectonic.tar.gz' && \
     tar xf "$archive" && \
     rm "$archive"
 
+# Download the latest release of biber
+RUN archive='biber.tar.gz' && \
+    wget -qO "$archive" 'https://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/current/binaries/Linux-musl/biber-linux_x86_64-musl.tar.gz/download' && \
+    tar xf "$archive" && \
+    rm "$archive"
+
 FROM alpine:latest AS runner
 
 # Add an unprivileged user
@@ -19,6 +25,9 @@ RUN adduser --disabled-password --gecos 'Unprivileged user' user
 
 # Copy over the standalone tectonic executable
 COPY --from=downloader --chmod=0755 /root/tectonic /usr/local/bin/
+
+# Copy over the standalone biber executable
+COPY --from=downloader --chmod=0755 /root/biber /usr/local/bin/
 
 # Install extra packages
 RUN echo '@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories

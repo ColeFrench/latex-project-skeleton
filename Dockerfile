@@ -2,6 +2,11 @@ FROM alpine:latest AS downloader
 
 WORKDIR /root
 
+# Set the timezone
+RUN apk --no-cache add tzdata && \
+    cp /usr/share/zoneinfo/America/New_York /etc/localtime && \
+    apk del tzdata
+
 # Download the latest release of tectonic
 RUN archive='tectonic.tar.gz' && \
     wget -qO - 'https://api.github.com/repos/tectonic-typesetting/tectonic/releases/latest' | \
@@ -22,6 +27,9 @@ FROM alpine:latest AS runner
 
 # Add an unprivileged user
 RUN adduser --disabled-password --gecos 'Unprivileged user' user
+
+# Copy over the timezone data
+COPY --from=downloader /etc/localtime /etc/localtime
 
 # Copy over the standalone tectonic executable
 COPY --from=downloader --chmod=0755 /root/tectonic /usr/local/bin/
